@@ -1,19 +1,50 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {connect} from 'react-redux'
 import './App.css';
-import Button from '@material-ui/core/Button'
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import firebase from 'firebase';
+import { BrowserRouter } from 'react-router-dom'
+import AppBar from './components/layout/Navbar'
 
-const App = () => {
-    return  <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-          <Button variant='contained' color='primary' onClick={() => {console.log('Hello World')}}>Hello World</Button>
-        </p>
-      </div>
+const uiConfig = {
+  // Popup signin flow rather than redirect flow.
+  signInFlow: 'popup',
+  // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+  signInSuccessUrl: '/signedIn',
+  // We will display Google and Facebook as auth providers.
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.FacebookAuthProvider.PROVIDER_ID
+  ],
+  callbacks: {
+    // Avoid redirects after sign-in.
+    signInSuccessWithAuthResult: () => false
+  }
+};
+
+const App = ({authenticated}) => {
+    return <BrowserRouter>
+            <div className="App">
+              <AppBar />
+              <p className="App-intro">
+                {
+                  authenticated ? 'Authenticated' : 'Not Logged in'
+                }
+                {/* <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} /> */}
+              </p>
+            </div>
+          </BrowserRouter>
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  const authenticated = state.authState.user_auth
+  return {authenticated}
+}
+
+const mapDispatch = (dispatch) => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps)(App);
