@@ -12,21 +12,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const SignedOutToolbar = ({onLogin}) => {
+const SignedOutToolbar = ({onLogin, onClickSignUp}) => {
     const classes= useStyles()
     return <Toolbar>
                 <Typography variant="h4" className={classes.title} >
                     ShiftSwapper
                 </Typography>
                 <Button color='inherit' onClick={onLogin}> Login </Button>
-                <Button color='inherit'> Sign Up </Button>
+                <Button color='inherit' onClick={onClickSignUp}> Sign Up </Button>
             </Toolbar>
 }
 
 const mapDispatch = (dispatch) => {
-    console.log(dispatch)
     return {
-        onLogin: () => dispatch(loginUser())
+        onLogin: () => dispatch(loginUser()),
+        onClickSignUp: () => dispatch({type:'SET_SCREEN_SIGNUP'})
     }
 }
 

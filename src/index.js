@@ -19,10 +19,6 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
-
-console.log('STORE:',store)
-// const store = createStore(appReducer, composeWithDevTools(applyMiddleware(Thunk)))
-
 ReactDOM.render(
   <Provider store={store}>
     <App />
