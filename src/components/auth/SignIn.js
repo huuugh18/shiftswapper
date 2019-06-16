@@ -68,7 +68,7 @@ const SignIn = ({handleSignIn,onChangeEmail, onChangePw, email, password}) => {
 };
 
 const mapState = (state) => {
-    const {authState:{email,password}} = state
+    const {auth:{email,password}} = state
     return {email,password}
 }
 const mapDispatch = (dispatch) => {

@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SignUp =({signUpFirstName, signupLastName, signupEmail, signupPw, handleChange}) => {
+const SignUp =({email, password, firstName, lastName, handleChange, handleSubmit}) => {
   const classes = useStyles();
 
   return <Container component="main" maxWidth="xs">
@@ -44,33 +44,25 @@ const SignUp =({signUpFirstName, signupLastName, signupEmail, signupPw, handleCh
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField onChange={handleChange} autoComplete="fname" name="firstName" variant="outlined" required fullWidth id="firstName" label="First Name" autoFocus />
+              <TextField onChange={handleChange} value={firstName} autoComplete="fname" name="firstName" variant="outlined" required fullWidth id="firstName" label="First Name" autoFocus />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField onChange={handleChange} variant="outlined" required fullWidth id="lastName" label="Last Name" name="lastName" autoComplete="lname" />
+              <TextField onChange={handleChange} value={lastName} variant="outlined" required fullWidth id="lastName" label="Last Name" name="lastName" autoComplete="lname" />
             </Grid>
             <Grid item xs={12}>
-              <TextField onChange={handleChange} variant="outlined" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />
+              <TextField onChange={handleChange} value={email} variant="outlined" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />
             </Grid>
             <Grid item xs={12}>
-              <TextField onChange={handleChange} variant="outlined" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
+              <TextField onChange={handleChange} value={password} variant="outlined" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" />
             </Grid>
           </Grid>
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} > Sign Up </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
-                Already have an account? Sign in
-              </Link>
+              <Link href="#" variant="body2"> Already have an account? Sign in </Link>
             </Grid>
           </Grid>
         </form>
@@ -79,13 +71,17 @@ const SignUp =({signUpFirstName, signupLastName, signupEmail, signupPw, handleCh
 };
 
 const mapState = state => {
-  const {authState:{signUpFirstName, signupLastName, signupEmail, signupPw}} = state
-  return {signUpFirstName, signupLastName, signupEmail, signupPw}
+  const {signup:{email, password, firstName, lastName}} = state
+  return {email, password, firstName, lastName}
 }
 
 const mapDispatch = dispatch => {
     return {
-      handleChange: e => dispatch({type: 'SET_SIGNUP_FIELD', payload:{[e.target.id]: e.target.value}})
+      handleChange: e => dispatch({type: 'SET_SIGNUP_FIELD', payload:{[e.target.id]: e.target.value}}),
+      handleSubmit: e => {
+        e.preventDefault();
+        console.log('submit user')
+      }
     }
 }
 

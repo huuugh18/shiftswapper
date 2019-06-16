@@ -28,8 +28,8 @@ const getActivePage = (page) => {
 }
 
 const mapStateToProps = (state) => {
-  const authenticated = state.authState.user_auth
-  const activePage = state.appState.active_page
+  const authenticated = state.auth.user_auth
+  const activePage = state.app.active_page
   return {authenticated,activePage}
 }
 

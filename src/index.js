@@ -7,7 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import Thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
-import store from './reducer'
+import store from './store/reducers/rootReducer'
 import firebaseConfig from './config/fbConfig'
 
 
