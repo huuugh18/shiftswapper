@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Container} from '@material-ui/core'
+import {Avatar, Button, CssBaseline, TextField, Link, Grid, Container} from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { setSignUpFirstName } from '../../store/actions/auth';
+
+import { signupUser } from '../../store/actions/auth'
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -80,7 +81,7 @@ const mapDispatch = dispatch => {
       handleChange: e => dispatch({type: 'SET_SIGNUP_FIELD', payload:{[e.target.id]: e.target.value}}),
       handleSubmit: e => {
         e.preventDefault();
-        console.log('submit user')
+        dispatch(signupUser())
       }
     }
 }

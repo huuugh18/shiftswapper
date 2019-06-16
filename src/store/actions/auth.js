@@ -1,11 +1,27 @@
 export const loginUser = () => {
-    console.log('login')
-    return {type: 'LOGIN_USER'}
+    return (dispatch, getState) => {
+        const {auth:{email,password}} = getState()
+        console.log('login', email)
+        // make async call to firebase
+        dispatch ({type: 'LOGIN_USER'})
+    }
 }
 
 export const logoutUser = () => {
-    console.log('logout')
-    return {type: 'LOGOUT_USER'}
+    return (dispatch, getState) => {
+        // make async call to firebase to logout user
+        console.log('logout')
+        dispatch ({type: 'LOGOUT_USER'})
+    }
+}
+
+export const signupUser = () => {
+    return (dispatch, getState) => {
+        const {signup:{password, firstName, lastName, email}} = getState()
+        // make async call to firebase to create auth user
+        // make async call to firebase to create database user
+        dispatch ({type: 'LOGIN_USER'})
+    }
 }
 
 export const setSignInEmail = (email) => {

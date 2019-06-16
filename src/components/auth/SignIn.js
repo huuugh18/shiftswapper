@@ -73,7 +73,10 @@ const mapState = (state) => {
 }
 const mapDispatch = (dispatch) => {
     return {
-        handleSignIn: () => console.log('sign in'),
+        handleSignIn: e => {
+          e.preventDefault();
+          dispatch(loginUser())
+        },
         onChangeEmail: (e) => dispatch(setSignInEmail(e.target.value)),
         onChangePw: e => dispatch(setSignInPassword(e.target.value))
     }
