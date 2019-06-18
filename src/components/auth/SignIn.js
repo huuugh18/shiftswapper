@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SignIn = ({handleSignIn,onChangeEmail, onChangePw, email, password}) => {
+const SignIn = ({handleSignIn,onChangeEmail, onChangePw, email, password, authError}) => {
   const classes = useStyles();
 
   return <Container component="main" maxWidth="xs">
@@ -51,6 +51,7 @@ const SignIn = ({handleSignIn,onChangeEmail, onChangePw, email, password}) => {
           <TextField value={password} onChange={onChangePw} variant="outlined" margin="normal" required fullWidth name="password" label="Password" type="password" id="password" />
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} onClick={handleSignIn}> Sign In </Button>
           <Grid container>
+            { authError ? <Grid item xs> {authError} </Grid> : null }
             <Grid item xs>
               <Link href="#" variant="body2">
                 Forgot password?
@@ -68,8 +69,8 @@ const SignIn = ({handleSignIn,onChangeEmail, onChangePw, email, password}) => {
 };
 
 const mapState = (state) => {
-    const {auth:{email,password}} = state
-    return {email,password}
+    const {auth:{email,password,authError}} = state
+    return {email,password,authError}
 }
 const mapDispatch = (dispatch) => {
     return {
@@ -77,7 +78,7 @@ const mapDispatch = (dispatch) => {
           e.preventDefault();
           dispatch(loginUser())
         },
-        onChangeEmail: (e) => dispatch(setSignInEmail(e.target.value)),
+        onChangeEmail: e => dispatch(setSignInEmail(e.target.value)),
         onChangePw: e => dispatch(setSignInPassword(e.target.value))
     }
 }

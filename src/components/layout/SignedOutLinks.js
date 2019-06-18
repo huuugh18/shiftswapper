@@ -2,7 +2,6 @@ import React,  { useState } from 'react'
 import { connect }          from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import { Toolbar, Typography, Button } from '@material-ui/core'
-import {loginUser} from '../../store/actions/auth'
 
 const useStyles = makeStyles(theme => ({
     title: {
