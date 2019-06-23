@@ -12,18 +12,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const AppBarMain = ({authenticated, auth}) => {
+const AppBarMain = ({ auth }) => {
     const classes= useStyles()
+    const toolbar = auth.uid ? <SignedInToolbar /> : <SignedOutToolbar />
     return <div className={classes.root}>
             <AppBar position="static">
-                { authenticated ? <SignedInToolbar /> : <SignedOutToolbar /> }
+                { toolbar }
             </AppBar>
     </div>
 }
 const mapState = (state) => {
-    const authenticated = state.auth.user_auth
+    console.log(state)
     const auth = state.firebase.auth
-    return {authenticated,auth}
+    return {auth}
 }
 
 export default connect(mapState)(AppBarMain)

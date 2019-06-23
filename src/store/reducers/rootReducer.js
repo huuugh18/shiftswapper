@@ -2,15 +2,26 @@ import { combineReducers } from 'redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import Thunk from 'redux-thunk'
+
 import { reduxFirestore, getFirestore } from 'redux-firestore'
-import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
+import { reactReduxFirebase, getFirebase, firebaseReducer } from 'react-redux-firebase'
+
 import fbConfig from '../../config/fbConfig'
-import { firebaseReducer } from 'react-redux-firebase'
 
 import appReducer from './appReducer'
 import authReducer from './authReducer'
 import signupReducer from './signupReducer'
 
+// ------------ LOGGER -------------
+const logger = store => next => action => {
+   console.group(action.type);
+   console.log('%c prev state', 'color: gray', store.getState());
+   console.log('%c action', 'color: blue', action);
+   let result = next(action);
+   console.log('%c next state', 'color: green', store.getState());
+   console.groupEnd(action.type);
+   return result
+ }
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -19,11 +30,15 @@ const rootReducer = combineReducers({
     firebase: firebaseReducer
 })
 
-export default createStore(rootReducer,
+
+const store = createStore(rootReducer,
     compose(
-        composeWithDevTools(applyMiddleware(Thunk.withExtraArgument({getFirebase,getFirestore}))),
-        reduxFirestore(fbConfig),
-        reactReduxFirebase(fbConfig)
+        composeWithDevTools(
+            applyMiddleware(Thunk.withExtraArgument({getFirebase,getFirestore}),logger),
+            reactReduxFirebase(fbConfig),
+            reduxFirestore(fbConfig),
+        ),
     )
 );
 
+export default store;

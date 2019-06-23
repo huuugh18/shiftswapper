@@ -3,23 +3,27 @@ export const loginUser = () => {
         const {auth:{email,password}} = getState();
         const firebase = getFirebase();
         console.log('login', email)
+
         firebase.auth().signInWithEmailAndPassword(email,password)
         .then(() => {
+            console.log('login success')
             dispatch ({type: 'LOGIN_USER'})
         })
         .catch( err => {
             console.log(err)
             dispatch({type: 'LOGIN_ERROR', err})
         })
-        // make async call to firebase
     }
 }
 
 export const logoutUser = () => {
-    return (dispatch, getState) => {
-        // make async call to firebase to logout user
+    return (dispatch, getState, {getFirebase}) => {
+        const firebase = getFirebase();
         console.log('logout')
-        dispatch ({type: 'LOGOUT_USER'})
+        // make async call to firebase to logout user
+        firebase.auth().signOut().then(() => {
+            dispatch ({type: 'LOGOUT_USER'})
+        })
     }
 }
 
@@ -28,24 +32,23 @@ export const signupUser = () => {
         const {signup:{password, firstName, lastName, email}} = getState()
         const firestore = getFirestore();
         const firebase = getFirebase();
+
         firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then( user => {
-            const uid = user.uid
+        .then( resp => {
+            const uid = resp.user.uid
             let docRef = firestore.collection('users').doc(uid)
-            docRef.add({
+            return docRef.set({
                 firstName,
                 lastName,
                 uid,
                 created: new Date()
             })
-            // add user to database
         })
-        .catch( error => {
-            // handle error
+        .then(() => {
+            dispatch({type: 'SIGNUP_SUCCESS'})
+        }).catch( err => {
+            dispatch({type: 'SIGNUP_ERROR', err})
         })
-        // make async call to firebase to create auth user
-        // make async call to firebase to create database user
-        dispatch ({type: 'LOGIN_USER'})
     }
 }
 

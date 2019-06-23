@@ -2,7 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 
-export const firebaseConfig = {
+export const config = {
     apiKey: "AIzaSyDK5DXNoahQ2oVEsEY6ec4oH3Rz3DUUB0I",
     authDomain: "shiftswapper-5ebe4.firebaseapp.com",
     databaseURL: "https://shiftswapper-5ebe4.firebaseio.com",
@@ -12,7 +12,7 @@ export const firebaseConfig = {
     appId: "1:806305888353:web:80d9cb958aacc2ec"
 };
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(config);
 // firebase.firestore().settings({ timestampsInSnapshots: true});
 
 export default firebase;
