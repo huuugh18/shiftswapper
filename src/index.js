@@ -15,11 +15,13 @@ import store from './store/reducers/rootReducer'
 import "firebase/auth";
 import "firebase/firestore";
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
-);
+store.firebaseAuthIsReady.then(() => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('root')
+  );
+})
 // firebase.initializeApp(firebaseConfig)
 // store.dispatch(firebase.initializeApp(firebaseConfig))
