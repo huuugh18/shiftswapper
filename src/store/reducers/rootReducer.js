@@ -11,6 +11,7 @@ import fbConfig from '../../config/fbConfig'
 import appReducer from './appReducer'
 import authReducer from './authReducer'
 import signupReducer from './signupReducer'
+import dateReducer from './dateReducer'
 
 // ------------ LOGGER -------------
 const logger = store => next => action => {
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({
     auth: authReducer,
     app: appReducer,
     signup: signupReducer,
-    firebase: firebaseReducer
+    firebase: firebaseReducer,
+    date: dateReducer
 })
 
 
@@ -35,7 +37,7 @@ const store = createStore(rootReducer,
     compose(
         composeWithDevTools(
             applyMiddleware(Thunk.withExtraArgument({getFirebase,getFirestore}),logger),
-            reactReduxFirebase(fbConfig, {attachAuthIsReady: true}),
+            reactReduxFirebase(fbConfig, {useFirestoreForProfile: true, userProfile: 'users', attachAuthIsReady: true}),
             reduxFirestore(fbConfig),
         ),
     )
