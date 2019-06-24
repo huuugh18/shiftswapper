@@ -24,7 +24,7 @@ const MonthHeader = ({getNextPeriod,getPrevPeriod,calendarMonth}) => {
                     </IconButton>
                 </div>
                 <div id={'calHeaderTitle'} style={monthYearDisplay}>
-                    {moment(calendarMonth).format('MMMM')}
+                    {moment(calendarMonth).format('MMMM YYYY')}
                 </div>
                 <div id={'calHeaderBtnRight'}>
                     <IconButton

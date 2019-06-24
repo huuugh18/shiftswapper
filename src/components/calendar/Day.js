@@ -2,38 +2,23 @@ import React, { Component } from 'react'
 import { connect }          from 'react-redux'
 import moment               from 'moment'
 
-import ShiftEvent           from '../events/Event'
-import DayShift             from '../events/DayShift'
-import NightShift           from '../events/NightShift'
+// import ShiftEvent           from '../events/Event'
+// import DayShift             from '../events/DayShift'
+// import NightShift           from '../events/NightShift'
 
-import {setShift}           from '../cal-functions/date-thunks'
-import {dayStyle}           from '../styles/cal-styles'
-
-
-const DayComponent = ({date,isToday,type,onClickDay}) => {
-    return <div className={'calendar_day_parent'} style={dayStyle(isToday,type)} onClick={onClickDay}>
-                {
-                    getDateNum(date)
-                }
-                {
-                    getTypeDisplay(type,date)
-                }
-            </div>
-}
+// import {setShift}           from './cal-functions/date-thunks'
+import {dayStyle}           from './cal-styles'
 
 
-const getTypeDisplay = (type,date) => {
-    switch (type) {
-        case 'day': return <DayShift date={date}/>
-        case 'night':return <NightShift date={date}/>
-        default : return 
-    }
-}
-
-
+// const getTypeDisplay = (type,date) => {
+//     switch (type) {
+//         case 'day': return <DayShift date={date}/>
+//         case 'night':return <NightShift date={date}/>
+//         default : return
+//     }
+// }
 
 const getDateNum = date => date ? moment(date).format('DD') : null
-
 
 const getShiftType = (shiftState,dayDate) => {
     const formatDate = dayDate.format('MM-DD-YYYY')
@@ -42,17 +27,27 @@ const getShiftType = (shiftState,dayDate) => {
 
 }
 
+const DayComponent = ({date,isToday,type,onClickDay}) => {
+    return <div className={'calendar_day_parent'} style={dayStyle(isToday,type)} onClick={onClickDay}>
+                { getDateNum(date) }
+                {/* { getTypeDisplay(type,date) } */}
+            </div>
+}
+
 const mapDispatchToProps = (dispatch,{date}) => {
-     return {
-          onClickDay: () => dispatch(setShift(date))
-     }
+    return {
+        onClickDay: () => {
+            console.log('Clicked:', date)
+            // dispatch(setShift(date))
+         }
+    }
 }
 
 const mapStateToProps = (state,{date}) => {
-    const {dateState: {selectedDate,periodStart,currentDate}, shiftState } = state
-    const type = getShiftType(shiftState,date)
+    const {date: {currentDate} } = state
+    // const type = getShiftType(shiftState,date)
     const isToday = moment(date).format('DDDYYYY') === moment(currentDate).format('DDDYYYY')
-    return {isToday,shiftState,type}
+    return {isToday}
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(DayComponent)

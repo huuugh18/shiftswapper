@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import { connect }       from 'react-redux'
+
 import DayHeaders        from './DayHeaders'
 import Week              from './Week'
-import {getDateMatrix}   from '../cal-functions/date-matrix'
+import {getDateMatrix}   from './cal-functions/date-matrix'
 
 
 const mapDateMatrix = (monthMatrix) => {
-    return monthMatrix.map((row,i) => 
+    return monthMatrix.map((row,i) =>
         <Week key={i} id={i} dates={row}/>
     )
 }
 
 
-const MonthComponent = ({monthMatrix,state}) => {
+const MonthComponent = ({monthMatrix}) => {
     return <div id='calMonthParent'>
                 <DayHeaders />
                 {
@@ -22,9 +23,9 @@ const MonthComponent = ({monthMatrix,state}) => {
 }
 
 const mapStateToProps = (state) => {
-    const {dateState:{periodStart}} = state
-    const monthMatrix = getDateMatrix(periodStart)
-    return {monthMatrix,state}
+    const {date:{calendarMonth}} = state
+    const monthMatrix = getDateMatrix(calendarMonth)
+    return {monthMatrix}
 }
 
-export default connect(mapStateToProps)(MonthComponent) 
+export default connect(mapStateToProps)(MonthComponent)

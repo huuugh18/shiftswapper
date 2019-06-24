@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { connect }          from 'react-redux'
 
 import Day                  from './Day'
-import {weekContainer,weekDay}      from '../styles/cal-styles'
+import {weekContainer,weekDay}      from './cal-styles'
 
 const getDays = (dates) => {
     return dates.map((day,i) =>
-        <div key={day.format('DDDYYYY')} id={day.format('DDDYYYY')} style={weekDay('large')} > 
+        <div key={day.format('DDDYYYY')} id={day.format('DDDYYYY')} style={weekDay('large')} >
             <Day date={day} />
         </div>
     )
@@ -14,9 +14,7 @@ const getDays = (dates) => {
 
 const WeekComponent = ({dates}) => {
     return <div className={'calWeekParent'} style={weekContainer}>
-                {
-                    getDays(dates)
-                }
+            { getDays(dates) }
           </div>
 }
 
