@@ -6,20 +6,15 @@ import LeftIcon from '@material-ui/icons/ChevronLeft'
 import RightIcon from '@material-ui/icons/ChevronRight'
 import IconButton from '@material-ui/core/IconButton';
 
-import {getNewPeriod}         from '../../store/actions/calendar'
+import {changeCalMonth}         from '../../store/actions/calendar'
 
 import {monthHeaderContainer,monthNavBtn,monthYearDisplay}          from './cal-styles'
 
 
-const MonthHeader = ({getNextPeriod,getPrevPeriod,calendarMonth}) => {
+const MonthHeader = ({getNextMonth,getPrevMonth,calendarMonth}) => {
     return <div id={'calHeader'} style={monthHeaderContainer('large')}>
                 <div id={'calHeaderBtnLeft'}>
-                    <IconButton
-                        onClick={getPrevPeriod}
-                        // style={monthNavBtn}
-                        // color='primary'
-                        // varient='contained'
-                    >
+                    <IconButton onClick={getPrevMonth} style={monthNavBtn} color='primary' varient='contained' >
                         <LeftIcon />
                     </IconButton>
                 </div>
@@ -27,12 +22,7 @@ const MonthHeader = ({getNextPeriod,getPrevPeriod,calendarMonth}) => {
                     {moment(calendarMonth).format('MMMM YYYY')}
                 </div>
                 <div id={'calHeaderBtnRight'}>
-                    <IconButton
-                        onClick={getNextPeriod}
-                        // color='primary'
-                        // varient='contained'
-                        // style={monthNavBtn}
-                    >
+                    <IconButton onClick={getNextMonth} color='primary' varient='contained' style={monthNavBtn} >
                         <RightIcon/>
                     </IconButton>
                 </div>
@@ -41,8 +31,8 @@ const MonthHeader = ({getNextPeriod,getPrevPeriod,calendarMonth}) => {
 
 const mapDispatchToProps = (dispatch) => {
      return {
-          getPrevPeriod: () => dispatch(getNewPeriod('prev')),
-          getNextPeriod: () => dispatch(getNewPeriod('next'))
+          getPrevMonth: () => dispatch(changeCalMonth('prev')),
+          getNextMonth: () => dispatch(changeCalMonth('next'))
      }
 }
 

@@ -91,7 +91,7 @@ export const dayStyle = (isToday,type) => {
     return {
         paddingRight:'1px',
         textAlign: 'right',
-        fontSize: '125%',
+        fontSize: '80%',
         fontFamily: calFontFam,
         flexGrow:'1',
         flexShrink:'1',

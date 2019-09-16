@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { connect }          from 'react-redux'
+import { compose } from 'redux'
 import moment               from 'moment'
+import { firestoreConnect } from 'react-redux-firebase'
 
-// import ShiftEvent           from '../events/Event'
-// import DayShift             from '../events/DayShift'
-// import NightShift           from '../events/NightShift'
+// import ShiftEvent           from '../shifts/Event'
+import DayShift             from '../shifts/DayShift'
+import NightShift           from '../shifts/NightShift'
 
-// import {setShift}           from './cal-functions/date-thunks'
+import {setShift}           from './cal-functions/shift-functions'
 import {dayStyle}           from './cal-styles'
 
 
@@ -38,7 +40,7 @@ const mapDispatchToProps = (dispatch,{date}) => {
     return {
         onClickDay: () => {
             console.log('Clicked:', date)
-            // dispatch(setShift(date))
+            dispatch(setShift(date))
          }
     }
 }
@@ -50,4 +52,9 @@ const mapStateToProps = (state,{date}) => {
     return {isToday}
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(DayComponent)
+export default compose(
+    connect(mapStateToProps,mapDispatchToProps),
+    firestoreConnect([
+        { collection: 'shifts'}
+    ])
+)(DayComponent)

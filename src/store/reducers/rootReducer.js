@@ -3,7 +3,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import Thunk from 'redux-thunk'
 
-import { reduxFirestore, getFirestore } from 'redux-firestore'
+import { reduxFirestore, getFirestore, firestoreReducer } from 'redux-firestore'
 import { reactReduxFirebase, getFirebase, firebaseReducer } from 'react-redux-firebase'
 
 import fbConfig from '../../config/fbConfig'
@@ -29,7 +29,8 @@ const rootReducer = combineReducers({
     app: appReducer,
     signup: signupReducer,
     firebase: firebaseReducer,
-    date: dateReducer
+    date: dateReducer,
+    firestore: firestoreReducer
 })
 
 
