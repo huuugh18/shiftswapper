@@ -5,10 +5,12 @@ import Month                from './Month'
 import {calendarContainer}  from './cal-styles'
 
 const MonthComponent = () => {
-    return <div id={'calendarParent'} style={calendarContainer} className={'calendar'}>
+    return (
+        <div id={'calendarParent'} style={calendarContainer} className={'calendar'}>
                 <CalHeader />
                 <Month />
             </div>
+    ) 
 }
 
 

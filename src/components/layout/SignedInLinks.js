@@ -15,15 +15,17 @@ const useStyles = makeStyles(theme => ({
 
 const SignedInToolbar = ({onLogout}) => {
     const classes= useStyles()
-    return <Toolbar>
-                <Typography variant="h4" className={classes.title} >
-                    ShiftSwapper
-                </Typography>
-                <IconButton>
-                    <AccountCircle />
-                </IconButton>
-                <Button color='inherit' onClick={onLogout}> Sign Out </Button>
-            </Toolbar>
+    return (
+        <Toolbar>
+            <Typography variant="h4" className={classes.title} >
+                ShiftSwapper
+            </Typography>
+            <IconButton>
+                <AccountCircle />
+            </IconButton>
+            <Button color='inherit' onClick={onLogout}> Sign Out </Button>
+        </Toolbar>
+    )
 }
 
 const mapDispatch = (dispatch) => {

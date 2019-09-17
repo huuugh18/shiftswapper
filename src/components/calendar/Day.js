@@ -30,10 +30,12 @@ const getShiftType = (shiftState,dayDate) => {
 }
 
 const DayComponent = ({date,isToday,type,onClickDay}) => {
-    return <div className={'calendar_day_parent'} style={dayStyle(isToday,type)} onClick={onClickDay}>
-                { getDateNum(date) }
-                {/* { getTypeDisplay(type,date) } */}
-            </div>
+    return (
+        <div className={'calendar_day_parent'} style={dayStyle(isToday,type)} onClick={onClickDay}>
+            { getDateNum(date) }
+            {/* { getTypeDisplay(type,date) } */}
+        </div>
+    )
 }
 
 const mapDispatchToProps = (dispatch,{date}) => {

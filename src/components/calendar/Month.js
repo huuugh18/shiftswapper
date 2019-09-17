@@ -14,12 +14,12 @@ const mapDateMatrix = (monthMatrix) => {
 
 
 const MonthComponent = ({monthMatrix}) => {
-    return <div id='calMonthParent'>
-                <DayHeaders />
-                {
-                    mapDateMatrix(monthMatrix)
-                }
-            </div>
+    return (
+        <div id='calMonthParent'>
+            <DayHeaders />
+            { mapDateMatrix(monthMatrix) }
+        </div>
+    )
 }
 
 const mapStateToProps = (state) => {

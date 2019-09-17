@@ -12,22 +12,24 @@ import {monthHeaderContainer,monthNavBtn,monthYearDisplay}          from './cal-
 
 
 const MonthHeader = ({getNextMonth,getPrevMonth,calendarMonth}) => {
-    return <div id={'calHeader'} style={monthHeaderContainer('large')}>
-                <div id={'calHeaderBtnLeft'}>
-                    <IconButton onClick={getPrevMonth} style={monthNavBtn} color='primary' varient='contained' >
-                        <LeftIcon />
-                    </IconButton>
-                </div>
-                <div id={'calHeaderTitle'} style={monthYearDisplay}>
-                    {moment(calendarMonth).format('MMMM YYYY')}
-                </div>
-                <div id={'calHeaderBtnRight'}>
-                    <IconButton onClick={getNextMonth} color='primary' varient='contained' style={monthNavBtn} >
-                        <RightIcon/>
-                    </IconButton>
-                </div>
-          </div>
-}
+    return (
+        <div id={'calHeader'} style={monthHeaderContainer('large')}>
+            <div id={'calHeaderBtnLeft'}>
+                <IconButton onClick={getPrevMonth} style={monthNavBtn} color='primary' varient='contained' >
+                    <LeftIcon />
+                </IconButton>
+            </div>
+            <div id={'calHeaderTitle'} style={monthYearDisplay}>
+                {moment(calendarMonth).format('MMMM YYYY')}
+            </div>
+            <div id={'calHeaderBtnRight'}>
+                <IconButton onClick={getNextMonth} color='primary' varient='contained' style={monthNavBtn} >
+                    <RightIcon/>
+                </IconButton>
+            </div>
+        </div>
+    );
+};
 
 const mapDispatchToProps = (dispatch) => {
      return {

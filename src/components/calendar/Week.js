@@ -13,9 +13,11 @@ const getDays = (dates) => {
 }
 
 const WeekComponent = ({dates}) => {
-    return <div className={'calWeekParent'} style={weekContainer}>
+    return (
+        <div className={'calWeekParent'} style={weekContainer}>
             { getDays(dates) }
-          </div>
+        </div>
+    )
 }
 
 

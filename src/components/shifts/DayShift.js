@@ -6,9 +6,11 @@ import { connect }            from 'react-redux'
 import DayIcon              from '@material-ui/icons/WbSunny'
 
 const DayShiftEvent = ({eventClick,date,type}) => {
-    return <div className='shiftEventStyle shiftEventDay' onClick={eventClick}>
-        <DayIcon/>
-    </div>
+    return (
+        <div className='shiftEventStyle shiftEventDay' onClick={eventClick}>
+            <DayIcon/>
+        </div>
+    )
 }
 const mapDispatchToProps = (dispatch,{date}) => {
     return {

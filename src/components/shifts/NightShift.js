@@ -7,10 +7,12 @@ import NightIcon            from '@material-ui/icons/Brightness3'
 
 
 const NightShiftEvent = ({eventClick,date,type}) => {
-    return <div className='shiftEventStyle shiftEventNight'  onClick={eventClick}>
+    return (
+        <div className='shiftEventStyle shiftEventNight'  onClick={eventClick}>
             <NightIcon style={{color:'white'}}/>
         </div>
-}
+    );
+};
 
 const mapDispatchToProps = (dispatch,{date}) => {
     return {

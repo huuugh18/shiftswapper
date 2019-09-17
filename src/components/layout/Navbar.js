@@ -15,11 +15,13 @@ const useStyles = makeStyles(theme => ({
 const AppBarMain = ({ auth }) => {
     const classes= useStyles()
     const toolbar = auth.uid ? <SignedInToolbar /> : <SignedOutToolbar />
-    return <div className={classes.root}>
+    return (
+        <div className={classes.root}>
             <AppBar position="static">
                 { toolbar }
             </AppBar>
-    </div>
+        </div>
+    )
 }
 const mapState = (state) => {
     console.log(state)
