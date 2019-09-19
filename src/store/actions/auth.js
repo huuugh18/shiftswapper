@@ -17,7 +17,7 @@ export const loginUser = () => {
 }
 
 export const logoutUser = () => {
-    return (dispatch, getState, {getFirebase}) => {
+    return (dispatch, getState, getFirebase) => {
         const firebase = getFirebase();
         console.log('logout')
         // make async call to firebase to logout user

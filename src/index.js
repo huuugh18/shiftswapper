@@ -1,27 +1,39 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
-
+import { render } from 'react-dom';
 import { Provider } from 'react-redux'
-import store from './store/reducers/rootReducer'
+
+import firebase from './config/fbConfig'
+
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
+import { createFirestoreInstance } from 'redux-firestore'
+
+import App from './App'
+import './index.css'
+import store from './store/store'
 
 
-// Firebase App (the core Firebase SDK) is always required and
-// must be listed before other Firebase SDKs
-// import * as firebase from "firebase/app";
+const rrfConfig = {
+  userProfile: 'users',
+  useFirestorForProfile: true,
+  attachAuthIsReady: true
+}
 
-// Add the Firebase services that you want to use
-import "firebase/auth";
-import "firebase/firestore";
 
-store.firebaseAuthIsReady.then(() => {
-  ReactDOM.render(
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance
+}
+console.log({store,rrfProps})
+// store.firebaseAuthIsReady.then(() => {
+    render(
     <Provider store={store}>
-      <App />
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <App />
+      </ReactReduxFirebaseProvider>
     </Provider>,
     document.getElementById('root')
   );
-})
-// firebase.initializeApp(firebaseConfig)
-// store.dispatch(firebase.initializeApp(firebaseConfig))
+// });
+
