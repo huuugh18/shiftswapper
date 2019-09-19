@@ -1,5 +1,5 @@
 export const loginUser = () => {
-    return (dispatch, getState, { getFirebase, getFirestore }) => {
+    return (dispatch, getState, getFirebase) => {
         const {auth:{email,password}} = getState();
         const firebase = getFirebase();
         console.log('login', email)

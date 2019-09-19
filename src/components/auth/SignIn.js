@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { Redirect } from 'react-router-dom'
 import {Avatar, Button, CssBaseline, TextField, Link, Grid} from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -34,18 +34,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SignIn = ({handleSignIn,onChangeEmail, onChangePw, email, password, authError}) => {
+const SignIn = ({handleSignIn, onChangeEmail, onChangePw, auth, email, password, authError}) => {
   const classes = useStyles();
-
+  if (auth.uid) return <Redirect to='/' />
   return <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
+        <Typography component="h1" variant="h5"> Sign in </Typography>
         <form className={classes.form} noValidate>
           <TextField value={email} onChange={onChangeEmail} variant="outlined" margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus />
           <TextField value={password} onChange={onChangePw} variant="outlined" margin="normal" required fullWidth name="password" label="Password" type="password" id="password" />
@@ -53,14 +51,10 @@ const SignIn = ({handleSignIn,onChangeEmail, onChangePw, email, password, authEr
           <Grid container>
             { authError ? <Grid item xs> {authError} </Grid> : null }
             <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+              <Link href="#" variant="body2"> Forgot password? </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+              <Link href="#" variant="body2"> {"Don't have an account? Sign Up"} </Link>
             </Grid>
           </Grid>
         </form>
@@ -69,8 +63,8 @@ const SignIn = ({handleSignIn,onChangeEmail, onChangePw, email, password, authEr
 };
 
 const mapState = (state) => {
-    const {auth:{email,password,authError}} = state
-    return {email,password,authError}
+    const {auth:{email,password,authError},firebase:{auth}} = state
+    return {auth,email,password,authError}
 }
 const mapDispatch = (dispatch) => {
     return {
