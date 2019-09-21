@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect }          from 'react-redux'
 
-import Day                  from './Day'
+import DayContainer                  from './DayContainer'
 import {weekContainer,weekDay}      from './cal-styles'
 
 const getDays = (dates) => {
     return dates.map((day,i) =>
         <div key={day.format('DDDYYYY')} id={day.format('DDDYYYY')} style={weekDay('large')} >
-            <Day date={day} />
+            <DayContainer date={day} />
         </div>
     )
 }

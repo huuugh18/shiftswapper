@@ -3,6 +3,7 @@ import { connect }          from 'react-redux'
 import { compose } from 'redux'
 import moment               from 'moment'
 import { firestoreConnect } from 'react-redux-firebase'
+import Shift from './ShiftContainer'
 
 // import ShiftEvent           from '../shifts/Event'
 import DayShift             from '../shifts/DayShift'
@@ -29,16 +30,17 @@ const getShiftType = (shiftState,dayDate) => {
 
 }
 
-const DayComponent = ({date,isToday,type,onClickDay}) => {
+const DayComponent = ({date,isToday,type,onClickDay,uid}) => {
     return (
         <div className={'calendar_day_parent'} style={dayStyle(isToday,type)} onClick={onClickDay}>
             { getDateNum(date) }
             {/* { getTypeDisplay(type,date) } */}
+            <Shift uid={uid} date={date}/>
         </div>
     )
 }
 
-const mapDispatchToProps = (dispatch,{date}) => {
+const mapDispatch = (dispatch,{date}) => {
     return {
         onClickDay: () => {
             console.log('Clicked:', date)
@@ -47,16 +49,23 @@ const mapDispatchToProps = (dispatch,{date}) => {
     }
 }
 
-const mapStateToProps = (state,{date}) => {
+const mapState = (state,{date}) => {
+    const shifts = state.firestore.shifts
+    const uid = state.firebase.auth.uid
     const {date: {currentDate} } = state
     // const type = getShiftType(shiftState,date)
     const isToday = moment(date).format('DDDYYYY') === moment(currentDate).format('DDDYYYY')
-    return {isToday}
+    return {isToday,uid}
 }
 
 export default compose(
-    connect(mapStateToProps,mapDispatchToProps),
-    firestoreConnect([
-        { collection: 'shifts'}
-    ])
+    connect(mapState,mapDispatch)
+    // firestoreConnect(props => [
+    //     {
+    //         collection: 'shifts',
+    //         where:[
+    //             ['uid', '==', '1234']
+    //         ]
+    //     }
+    // ])
 )(DayComponent)
