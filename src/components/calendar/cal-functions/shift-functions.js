@@ -9,10 +9,7 @@ const buildShift = (date,uid,type) => {
     }
 }
 
-date: "01-20-2019"
-key: "12345"
-type: "day"
-uid: "f0fbGUkloRcKmopuCdIhxzNuKGk2"
+
 export const setShift = (date) => {
     return (dispatch,getState, getFirebase) => {
         const firebase = getFirebase();
@@ -21,16 +18,19 @@ export const setShift = (date) => {
         const formatDate = date.format('MM-DD-YYYY')
         // build db object
         const docData = buildShift(formatDate, uid)
-        // add shift to shifts collection
         // need to check to see if shift date already exists if so change shift type
+
         db.collection("shifts").add(docData)
             .then(docRef => {
                 // add shift key to user shifts array
-                // how to push onto existing array  in user doc
-                db.collection("users").doc(uid).collection("shifts")
-                console.log("Document successfully written!", docRef.id);
+                db.collection("users").doc(uid).update({
+                    shifts: firebase.firestore.FieldValue.arrayUnion(docRef.id)
+                })
+                .then (() => {
+                    console.log("Document successfully written!", docRef.id);
+                })
+                .catch(err => console.log({err}))
             });
-        // const fbRef = firebase.database().ref(`users/${uid}/shifts`)
         // const item = Object.values(shifts).find(a => a.date === formatDate)
         // if no previous shift on that date create a new one
         // if (!item) {
