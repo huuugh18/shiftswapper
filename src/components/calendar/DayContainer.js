@@ -50,7 +50,6 @@ const mapDispatch = (dispatch,{date}) => {
 }
 
 const mapState = (state,{date}) => {
-    const shifts = state.firestore.shifts
     const uid = state.firebase.auth.uid
     const {date: {currentDate} } = state
     // const type = getShiftType(shiftState,date)
@@ -58,14 +57,4 @@ const mapState = (state,{date}) => {
     return {isToday,uid}
 }
 
-export default compose(
-    connect(mapState,mapDispatch)
-    // firestoreConnect(props => [
-    //     {
-    //         collection: 'shifts',
-    //         where:[
-    //             ['uid', '==', '1234']
-    //         ]
-    //     }
-    // ])
-)(DayComponent)
+export default connect(mapState,mapDispatch)(DayComponent)

@@ -8,6 +8,11 @@ const buildShift = (date,uid,type) => {
         uid
     }
 }
+const checkForShift = (date, shifts) => {
+    // check if date has a shift
+    // return true or false
+    return false
+}
 
 
 export const setShift = (date) => {
@@ -19,7 +24,9 @@ export const setShift = (date) => {
         // build db object
         const docData = buildShift(formatDate, uid)
         // need to check to see if shift date already exists if so change shift type
-
+        const checkForShift = (formatDate, shifts)
+        // if true then need to change type
+        // if false then need to create shift
         db.collection("shifts").add(docData)
             .then(docRef => {
                 // add shift key to user shifts array
