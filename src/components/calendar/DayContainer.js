@@ -30,12 +30,14 @@ const getShiftType = (shiftState,dayDate) => {
 
 }
 
-const DayComponent = ({date,isToday,type,onClickDay,uid}) => {
+const DayComponent = ({date,isToday,type,onClickDay,shift,uid}) => {
     return (
         <div className={'calendar_day_parent'} style={dayStyle(isToday,type)} onClick={onClickDay}>
             { getDateNum(date) }
             {/* { getTypeDisplay(type,date) } */}
-            <Shift uid={uid} date={date}/>
+            {
+                shift ? <Shift date={date} shift={shift}/> : <div/>
+            }
         </div>
     )
 }
@@ -50,11 +52,30 @@ const mapDispatch = (dispatch,{date}) => {
 }
 
 const mapState = (state,{date}) => {
-    const uid = state.firebase.auth.uid
-    const {date: {currentDate} } = state
+    const currentDate = state.date.currentDate
+    const shifts = state.firestore.data.shifts
     // const type = getShiftType(shiftState,date)
     const isToday = moment(date).format('DDDYYYY') === moment(currentDate).format('DDDYYYY')
-    return {isToday,uid}
+    let shift = {}
+    if(shifts) {
+        const formattedDate = date.format('MM-DD-YYYY')
+        console.log({shifts})
+        shift = Object.values(shifts).find(a => {
+
+            a.date === formattedDate
+        })
+    }
+    return {isToday, shift}
 }
 
-export default connect(mapState,mapDispatch)(DayComponent)
+export default compose(
+  connect(mapState,mapDispatch),
+  firestoreConnect(props => [
+    {
+      collection:'shifts',
+      where:[
+        ['uid', '==', props.uid]
+      ]
+    }
+  ])
+)(DayComponent)

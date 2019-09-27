@@ -8,41 +8,9 @@ import Brightness3Icon from '@material-ui/icons/Brightness3';
 
 
 const ShiftComponent = ({shift,date}) => {
-  if (shift) {
-    return (
-      <div> Shift: {shift.type} </div>
-    )
-  }
-  return <div/>
+  return (
+    <div> Shift: {shift.type} </div>
+  )
 }
 
-const mapDispatch = dispatch => {
-  return {
-
-  }
-}
-
-const mapState = (state,{date}) => {
-  const shifts = state.firestore.data.shifts
-  const shift = {}
-  if(shifts) {
-    const formattedDate = date.format('MM-DD-YYYY')
-    const shift = Object.values(shifts).find(a => a.date === formattedDate)
-    return {shift}
-  }
-  return {shift}
-}
-
-export default compose(
-  connect(mapState,mapDispatch),
-  firestoreConnect(props => [
-    {
-      collection:'shifts',
-      where:[
-        ['uid', '==', props.uid],
-        // ['date', '==', moment(props.date).format('MM-DD-YYYY')]
-        // ['date', '==', '09-26-2019']
-      ]
-    }
-  ])
-)(ShiftComponent)
+export default (ShiftComponent)
