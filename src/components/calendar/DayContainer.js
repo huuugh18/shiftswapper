@@ -34,7 +34,7 @@ const getShiftType = (shiftState,dayDate) => {
 
 const DayComponent = ({date,isToday,type,onClickDay,shift,uid}) => {
     return (
-        <div className={'calendar_day_parent'} style={dayStyle(isToday,type)} onClick={onClickDay}>
+        <div className={'calendar_day_parent'} style={dayStyle(isToday,shift)} onClick={onClickDay}>
             { getDateNum(date) }
             {/* { getTypeDisplay(type,date) } */}
             {

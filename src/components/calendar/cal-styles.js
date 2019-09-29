@@ -87,7 +87,7 @@ export const weekDay = (size) => {
 }
 
 // ------------- DAY CALENDAR--------------------
-export const dayStyle = (isToday,type) => {
+export const dayStyle = (isToday,shift) => {
     return {
         paddingRight:'1px',
         textAlign: 'right',
@@ -95,9 +95,9 @@ export const dayStyle = (isToday,type) => {
         fontFamily: calFontFam,
         flexGrow:'1',
         flexShrink:'1',
-        backgroundColor: type === 'day' ? 'yellow': type==='night'? 'blue' : 'white',
+        backgroundColor: shift && shift.type === 'day' ? 'yellow': shift && shift.type ==='night'? 'blue' : 'white',
         // border: isToday ? '0.5px solid black' : null,
-        color: isToday ? numsToday : type === 'day' ? 'black' : type === 'night'? 'yellow' : 'black',
+        color: isToday ? numsToday : shift && shift.type === 'day' ? 'black' : shift && shift.type === 'night'? 'yellow' : 'black',
         height: '100%',
     }
 }
