@@ -5,10 +5,10 @@ import { compose } from 'redux';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 import { addShiftType } from '../calendar/cal-functions/shift-functions';
+import ShiftTypeItem from './ShiftTypeItem'
 
 
-
-const ShiftTypes = ({ shiftTypes, handleSubmit, message }) => {
+const ShiftTypes = ({ shiftTypes, handleSubmit, message, rmvMessage }) => {
     const [shiftValue, setShiftValue] = useState('testing');
     // const clickSubmit = () => handleSubmit(this.state.shiftValue);
     const clickSubmit = e => {
@@ -17,13 +17,13 @@ const ShiftTypes = ({ shiftTypes, handleSubmit, message }) => {
     };
     return (
         <div>
-            <ul>
-                {shiftTypes ? shiftTypes.map(a => 
-                        <li key={a}>{a}</li>
-                    ) 
-                    : null 
+            <div>
+                {
+                    shiftTypes ? shiftTypes.map(a => 
+                        <ShiftTypeItem key={a} shift={a} />
+                    )  : null 
                 }
-            </ul>
+            </div>
             <form onSubmit={clickSubmit}>
                 <TextField 
                     id="shift-type-input"
@@ -47,8 +47,7 @@ const mapState = (state,{uid}) => {
     console.log({shiftObject,shiftTypes})
     return {
         shiftTypes,
-        message: state.app.add_shift_type_status
-        
+        message: state.app.edit_shift_type_msg,
     }
 }
 const mapDispatch = dispatch => {

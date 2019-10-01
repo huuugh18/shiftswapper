@@ -1,6 +1,6 @@
 const appStateDefault = {
     active_page: 'signIn',
-    add_shift_type_status: '',
+    edit_shift_type_msg: '',
 }
 
 const appState = (state=appStateDefault, action) => {
@@ -9,8 +9,7 @@ const appState = (state=appStateDefault, action) => {
         case 'SET_SCREEN_SIGNIN': return Object.assign({}, state, {active_page: 'signin'});
         case 'SET_SCREEN_SIGNUP': return Object.assign({}, state, {active_page: 'signup'});
         case 'SET_SCREEN_USER_HOME': return Object.assign({}, state, {active_page: 'user_home'});
-        case 'ADD_SHIFT_TYPE_MSG': return Object.assign({}, state, {add_shift_type_status: action.payload})
-
+        case 'EDIT_SHIFT_TYPE_MSG': return Object.assign({}, state, {edit_shift_type_msg: action.payload})
         default: return state
     }
 }
