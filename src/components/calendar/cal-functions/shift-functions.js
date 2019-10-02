@@ -72,7 +72,7 @@ export const setNightShift = date => {
         // change date type of shift from day to night
         // don't need to change the shift tag in the user since shift still exists
         const db = getFirebase().firestore();
-        const {firestore:{data:{shifts}},firebase:{auth:{uid}}} = getState();
+        const {firestore:{data:{shifts}}} = getState();
         const formatDate = date.format('MM-DD-YYYY');
         const shiftExists = checkForShift(formatDate, shifts)
         return db.collection("shifts").doc(shiftExists.id).update({type: 'night'})
@@ -85,7 +85,7 @@ export const setDayShift = date => {
     return (dispatch, getState, getFirebase) => {
         const firebase = getFirebase();
         const db = getFirebase().firestore();
-        const {firestore:{data:{shifts}},firebase:{auth:{uid}}} = getState();
+        const {firebase:{auth:{uid}}} = getState();
         const formatDate = date.format('MM-DD-YYYY');
         const docData = buildShift(formatDate, uid)
         return db.collection("shifts").add(docData)

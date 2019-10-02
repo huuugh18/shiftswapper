@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { removeShiftType } from '../calendar/cal-functions/shift-functions';
 import Button from '@material-ui/core/Button'

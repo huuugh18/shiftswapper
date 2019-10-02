@@ -1,6 +1,6 @@
-import React, { Component }   from 'react'
-import { connect }            from 'react-redux'
-import moment                 from 'moment'
+import React from 'react'
+import { connect } from 'react-redux'
+import moment from 'moment'
 
 import LeftIcon from '@material-ui/icons/ChevronLeft'
 import RightIcon from '@material-ui/icons/ChevronRight'

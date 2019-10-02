@@ -1,36 +1,23 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect }          from 'react-redux'
 import { compose } from 'redux'
 import moment               from 'moment'
 import { firestoreConnect } from 'react-redux-firebase'
-import Shift from './ShiftContainer'
 import DayShift from './DayShift'
 import NightShift from './NightShift'
-
-// import ShiftEvent           from '../shifts/Event'
-// import DayShift             from '../shifts/DayShift'
-// import NightShift           from '../shifts/NightShift'
 
 import {onClickShift}           from './cal-functions/shift-functions'
 import {dayStyle}           from './cal-styles'
 
 
-// const getTypeDisplay = (type,date) => {
-//     switch (type) {
-//         case 'day': return <DayShift date={date}/>
-//         case 'night':return <NightShift date={date}/>
-//         default : return
-//     }
-// }
-
 const getDateNum = date => date ? moment(date).format('DD') : null
 
-const getShiftType = (shiftState,dayDate) => {
-    const formatDate = dayDate.format('MM-DD-YYYY')
-    const item = Object.values(shiftState).find(a => a.date === formatDate)
-    return item ? item.type : 'none'
+// const getShiftType = (shiftState,dayDate) => {
+//     const formatDate = dayDate.format('MM-DD-YYYY')
+//     const item = Object.values(shiftState).find(a => a.date === formatDate)
+//     return item ? item.type : 'none'
 
-}
+// }
 
 const DayComponent = ({date,isToday,type,onClickDay,shift,uid}) => {
     return (
@@ -58,7 +45,6 @@ const mapDispatch = (dispatch,{date}) => {
 const mapState = (state,{date}) => {
     const currentDate = state.date.currentDate
     const shifts = state.firestore.data.shifts
-    // const type = getShiftType(shiftState,date)
     const isToday = moment(date).format('DDDYYYY') === moment(currentDate).format('DDDYYYY')
     let shift = {}
     if(shifts) {

@@ -1,9 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Brightness3Icon from '@material-ui/icons/Brightness3';
 import {setNightShift}           from './cal-functions/shift-functions'
-
-
 import DayIcon              from '@material-ui/icons/WbSunny'
 
 
@@ -18,9 +15,7 @@ const DayShift = ({shift,onClickShift}) => {
 
 const mapDispatch = (dispatch,{date}) => {
     return {
-        onClickShift: () => {
-            dispatch(setNightShift(date))
-        }
+        onClickShift: () => dispatch(setNightShift(date))
     }
 }
 
