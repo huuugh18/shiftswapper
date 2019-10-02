@@ -3,13 +3,14 @@ export const addShiftType = (shift) => {
         const db = getFirebase().firestore();
         const {firestore:{data:{shiftTypes}},firebase:{auth:{uid}}} = getState();
         const userCurrentShiftTypes = Object.getOwnPropertyNames(shiftTypes[uid])
-        const shiftExistsCheck = userCurrentShiftTypes.findIndex(i =>  i === shift)
+        const formattedShift = shift.charAt(0).toUpperCase() + shift.slice(1).toLowerCase()
+        const shiftExistsCheck = userCurrentShiftTypes.findIndex(i =>  i === formattedShift)
         if(shiftExistsCheck >= 0){
             return dispatch({type:'',payload:'Shift already exists'})
         }
         else if(shiftExistsCheck < 0){
             // else if not add to user doc under shiftTypes
-            return db.collection("shiftTypes").doc(uid).set({[shift]:true},{ merge: true})
+            return db.collection("shiftTypes").doc(uid).set({[formattedShift]:true},{ merge: true})
                 .then(() => dispatch({type:'EDIT_SHIFT_TYPE_MSG',payload:'New Shift Type Added'}))
                 .catch(err => console.log('ERROR:',err))
 

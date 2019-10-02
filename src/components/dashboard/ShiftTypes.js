@@ -8,7 +8,7 @@ import { addShiftType } from '../calendar/cal-functions/shift-functions';
 import ShiftTypeItem from './ShiftTypeItem'
 
 
-const ShiftTypes = ({ shiftTypes, handleSubmit, message, rmvMessage }) => {
+const ShiftTypes = ({ shiftTypes, handleSubmit, message, shiftScreen }) => {
     const [shiftValue, setShiftValue] = useState('testing');
     // const clickSubmit = () => handleSubmit(this.state.shiftValue);
     const clickSubmit = e => {
@@ -17,37 +17,42 @@ const ShiftTypes = ({ shiftTypes, handleSubmit, message, rmvMessage }) => {
     };
     return (
         <div>
-            <div>
-                {
-                    shiftTypes ? shiftTypes.map(a => 
-                        <ShiftTypeItem key={a} shift={a} />
-                    )  : null 
-                }
-            </div>
-            <form onSubmit={clickSubmit}>
-                <TextField 
-                    id="shift-type-input"
-                    label="Shift"
-                    // className={classes.textField}
-                    value={shiftValue}  
-                    onChange={e =>  setShiftValue(e.target.value)}
-                    margin="normal"
-                />
-                <Button type='submit' variant='contained' color='primary'>Add New Shift</Button> 
-            </form>
+            {
+                shiftScreen === 'edit_shift' ? 
+                    <div>
+                        {
+                            shiftTypes ? shiftTypes.map(a => 
+                                <ShiftTypeItem key={a} shift={a} />
+                            )  : null 
+                        }
+                    </div>
+                : shiftScreen === 'add_shift' ?
+                    <form onSubmit={clickSubmit}>
+                        <TextField 
+                            id="shift-type-input"
+                            label="Shift"
+                            // className={classes.textField}
+                            value={shiftValue}  
+                            onChange={e =>  setShiftValue(e.target.value)}
+                            margin="normal"
+                        />
+                        <Button type='submit' variant='contained' color='primary'>Add New Shift</Button> 
+                    </form>
+                : null
+
+            }
             { message ?  <p> {message} </p> : null }
         </div>
     )
 }
 
 const mapState = (state,{uid}) => {
-
     const shiftObject = uid && state.firestore.data.shiftTypes ? state.firestore.data.shiftTypes[uid] : null
     const shiftTypes = shiftObject ? Object.getOwnPropertyNames(shiftObject) : null
-    console.log({shiftObject,shiftTypes})
     return {
         shiftTypes,
         message: state.app.edit_shift_type_msg,
+        shiftScreen: state.app.shift_screen
     }
 }
 const mapDispatch = dispatch => {
