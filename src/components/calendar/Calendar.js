@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { connect }          from 'react-redux'
-import CalHeader            from './MonthHeader'
-import Month                from './Month'
-import {calendarContainer}  from './cal-styles'
+import React from 'react'
+import { connect } from 'react-redux'
+import CalHeader from './MonthHeader'
+import Month from './Month'
+import {calendarContainer} from './cal-styles'
 
 const MonthComponent = () => {
     return (
