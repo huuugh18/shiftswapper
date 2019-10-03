@@ -1,20 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { removeShiftType } from '../calendar/cal-functions/shift-functions';
-import Button from '@material-ui/core/Button'
+import Chip from '@material-ui/core/Chip'
+// import { makeStyles } from '@material-ui/core'
 
-const ShiftTypeItem = ({shift,removeShift}) => {
+
+const ShiftTypeItem = ({ shift, removeShift, handleClick, isSelected }) => {
+    const variant = isSelected ? 'default' : 'outlined'
     return (
-        <span>
-            <p>{shift}</p>
-            <Button 
-                color='secondary' 
-                variant='outlined' 
-                onClick={removeShift}
-            >
-                Remove Shift Type
-            </Button>
-        </span>
+        <Chip 
+            label={shift} 
+            variant={variant}
+            onClick={handleClick} 
+            onDelete={removeShift}
+            style={{margin: '8px'}}
+            color="primary" 
+        />
     )
 }
 
@@ -23,8 +24,17 @@ const mapDispatch = (dispatch,{shift}) => {
         removeShift: (e) => {
             e.preventDefault();
             dispatch(removeShiftType(shift));
+        },
+        handleClick: () => {
+            dispatch({type:'SET_SELECTED_SHIFT_TYPE',payload:shift})
         }
+
     }
 }
 
-export default connect(null,mapDispatch)(ShiftTypeItem)
+const mapState = (state,{shift}) => {
+    const isSelected = state.app.user_selected_shift_type === shift
+    return { isSelected }
+}
+
+export default connect(mapState,mapDispatch)(ShiftTypeItem)

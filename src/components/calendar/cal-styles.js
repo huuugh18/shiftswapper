@@ -98,7 +98,7 @@ export const dayStyle = (isToday,shift) => {
         backgroundColor: shift && shift.type === 'day' ? 'yellow': shift && shift.type ==='night'? 'blue' : 'white',
         // border: isToday ? '0.5px solid black' : null,
         color: isToday ? numsToday : shift && shift.type === 'day' ? 'black' : shift && shift.type === 'night'? 'yellow' : 'black',
-        height: '100%',
+        height: '75px',
     }
 }
 

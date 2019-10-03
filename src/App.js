@@ -10,7 +10,7 @@ import SignUp from './components/auth/SignUp'
 const App = () => {
     return (
         <BrowserRouter>
-            <div className="App">
+            <div className="App" style={{paddingBottom:'50px'}}>
                 <AppBar />
                 <Switch>
                     <Route exact path='/' component={Dashboard} />
