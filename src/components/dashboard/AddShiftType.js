@@ -37,7 +37,7 @@ const AddShiftType = ({handleSubmit}) => {
                         color='secondary'
                         size='large'
                     >
-                        Add New Shift
+                        Add Shift
                     </Button> 
                 </Grid>
             </Grid>
