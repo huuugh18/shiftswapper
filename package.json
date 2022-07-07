@@ -7,7 +7,7 @@
     "@material-ui/icons": "^4.0.1",
     "@trystal/uniq-ish": "^2.0.1",
     "firebase": "^6.1.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
